@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="sdk-demo:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="sdk-demo.war">
+      <element id="artifact" artifact-name="sdk-demo:war exploded" />
+    </root>
+  </artifact>
+</component>
