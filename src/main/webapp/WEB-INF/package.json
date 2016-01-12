@@ -1,0 +1,39 @@
+{
+  "name": "open-demo",
+  "version": "0.0.1",
+  "description": "千米开放平台外放的sdk使用示例",
+  "main": "index.js",
+  "scripts": {
+    "debug": "webpack",
+    "watch": "webpack-dev-server --inline --hot --content-base ./src --port 3100",
+    "release": "webpack --config webpack.production.js"
+  },
+  "keywords": [
+    "千米sdk",
+    "示例",
+    "sdk示例",
+    "demo"
+  ],
+  "author": "marchFantasy",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^1.0.13",
+    "vue-resource": "^0.6.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.4.0",
+    "babel-loader": "^6.2.1",
+    "babel-plugin-transform-runtime": "^6.4.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "babel-runtime": "^6.3.19",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "vue-hot-reload-api": "^1.2.2",
+    "vue-html-loader": "^1.1.0",
+    "vue-loader": "^8.0.2",
+    "vue-style-loader": "^1.0.0",
+    "webpack": "^1.12.10",
+    "webpack-dev-server": "^1.14.0"
+  }
+}
