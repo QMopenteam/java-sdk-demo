@@ -1,8 +1,8 @@
 
 module.exports = {
   entry: {
-    "mobile-recharge" : "./src/mobileRecharge/index.js",
-    "order-confirm" : "./src/orderConfirm/index.js"
+    "mobile-recharge" : "./static/mobileRecharge/index.js",
+    "order-confirm" : "./static/orderConfirm/index.js"
   },
   output: {
     path: './build',
@@ -30,8 +30,6 @@ module.exports = {
       }
     ]
   },
-  // example: if you wish to apply custom babel options
-  // instead of using vue-loader's default:
   babel: {
     presets: ['es2015', 'stage-0'],
     plugins: ['transform-runtime']

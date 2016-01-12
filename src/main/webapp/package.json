@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "debug": "webpack",
-    "watch": "webpack-dev-server --inline --hot --content-base ./src --port 3100",
+    "watch": "webpack -w",
     "release": "webpack --config webpack.production.js"
   },
   "keywords": [
