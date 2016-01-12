@@ -14,6 +14,10 @@
 </body>
 <script>
   //全局变量
+  var response = {
+    data:eval("("+'${data}'+")")
+  };
+
 </script>
 <script src="../../build/order-confirm.js"></script>
 </html>

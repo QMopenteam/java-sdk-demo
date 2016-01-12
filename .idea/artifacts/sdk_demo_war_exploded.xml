@@ -17,11 +17,10 @@
           <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.1.1.RELEASE" />
-          <element id="library" level="project" name="qianmi-api-sdk-java-20160104" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/sdk-demo/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="sdk-demo/web/Web" />
     </root>

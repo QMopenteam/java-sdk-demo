@@ -29,15 +29,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/mobile")
 public class MobileController {
 
-//    private static final String url = "gw.api.qianmi.com/api";
-//    private static final String appKey = "{你的APPKEY}";
-//    private static final String appSecret = "{你的appSecret}";
-//    private static final String accessToken = "{你的accessToken}";
+    private static final String url = "gw.api.qianmi.com/api";
+    private static final String appKey = "{你的APPKEY}";
+    private static final String appSecret = "{你的appSecret}";
+    private static final String accessToken = "{你的accessToken}";
 
-    private static final String url = "http://172.19.65.14:8080/api";
-    private static final String appKey = "10000543";
-    private static final String appSecret = "Ze0RMHXkCKtOCpNSQYbAiR7nBlT8ChdJ";
-    private static final String accessToken = "558bb67731c34db5b1892c7528b98021";
 
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
@@ -57,14 +53,25 @@ public class MobileController {
     @RequestMapping(value = "/itemInfo")
     public Object mobileGetItemInfo(String mobileNo, String rechargeAmount,Model model) throws ApiException {
 
+        if(mobileNo.isEmpty() || rechargeAmount.isEmpty()){
+            return "mobile-recharge";
+        }
         OpenClient client = new DefaultOpenClient(url, appKey, appSecret);
         RechargeMobileGetItemInfoRequest req = new RechargeMobileGetItemInfoRequest();
         req.setMobileNo(mobileNo);
         req.setRechargeAmount(rechargeAmount);
         RechargeMobileGetItemInfoResponse response = client.execute(req, accessToken);
-        System.out.println(response);
-        model.addAttribute("response",response);
-        return "order-confirm";
+        //System.out.println(response);
+
+
+        if(response.getErrorCode() != null){
+            model.addAttribute("error",response.getSubMsg()+response.getSubCode());
+            return "notFound";
+        }else{
+            model.addAttribute("data",response.getBody());
+            return "order-confirm";
+        }
+
     }
 
     /**

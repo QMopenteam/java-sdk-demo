@@ -9928,7 +9928,7 @@
 	
 	
 	// module
-	exports.push([module.id, "\n.container{\n  margin:20px auto;\n}\n", "", {"version":3,"sources":["/./static/orderConfirm/app.vue?7720e50e"],"names":[],"mappings":";AACA;EACA,iBAAA;CACA","file":"app.vue","sourcesContent":["<style>\n.container{\n  margin:20px auto;\n}\n</style>\n<template>\n<div class=\"container\">\n  <table class=\"table\">\n    <tbody>\n      <tr>\n        <td>\n          手机号码：\n        </td>\n        <td>\n          {{mobile}}\n        </td>\n      </tr>\n      <tr>\n        <td>\n          充值面额：\n        </td>\n        <td>\n          {{recharge}}\n        </td>\n      </tr>\n      <tr>\n        <td>\n          订单编号：\n        </td>\n        <td>\n          {{orderNo}}\n        </td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n</template>\n<script>\nimport store from './store.js';\nexport default{\n  data(){\n    return {\n      mobile:store.getMobile(),\n      recharge:store.getRecharge(),\n      orderNo:store.getOrderNo()\n    }\n  }\n}\n\n</script>\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "\n.container{\n  margin:20px auto;\n}\n.label-info{\n  color:#fff;\n}\n", "", {"version":3,"sources":["/./static/orderConfirm/app.vue?68f9bdb1"],"names":[],"mappings":";AACA;EACA,iBAAA;CACA;AACA;EACA,WAAA;CACA","file":"app.vue","sourcesContent":["<style>\n.container{\n  margin:20px auto;\n}\n.label-info{\n  color:#fff;\n}\n</style>\n<template>\n<div class=\"container\">\n  <table class=\"table\">\n    <thead>\n      <tr>\n        <th colspan=\"2\" align=\"center\" class=\"label-info\">\n          订单确认\n        </th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>\n          手机号码：\n        </td>\n        <td>\n          {{mobile}}\n        </td>\n      </tr>\n      <tr>\n        <td>\n          充值面额：\n        </td>\n        <td>\n          {{recharge}}\n        </td>\n      </tr>\n      <tr>\n        <td>\n          商品信息：\n        </td>\n        <td>\n          {{itemInfo}}\n        </td>\n      </tr>\n      <tr>\n        <td>\n          运营商：\n        </td>\n        <td>\n          {{operator}}\n        </td>\n      </tr>\n    </tbody>\n  </table>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <button class=\"btn btn-primary\" @click=\"orderConfirm\">确认订单</button>\n    </div>\n  </div>\n</div>\n</template>\n<script>\nimport store from './store.js';\nexport default{\n  data(){\n    return {\n      itemInfo:store.getItemInfo(),\n      operator:store.getOperator(),\n      mobile:store.getMobile(),\n      recharge:store.getRecharge()\n    }\n  },\n  methods:{\n    orderConfirm(){\n      alert(\"下单成功！\");\n    }\n  }\n}\n\n</script>\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -9938,7 +9938,7 @@
 /***/ 41:
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -9953,10 +9953,17 @@
 	exports.default = {
 	  data: function data() {
 	    return {
+	      itemInfo: _store2.default.getItemInfo(),
+	      operator: _store2.default.getOperator(),
 	      mobile: _store2.default.getMobile(),
-	      recharge: _store2.default.getRecharge(),
-	      orderNo: _store2.default.getOrderNo()
+	      recharge: _store2.default.getRecharge()
 	    };
+	  },
+	
+	  methods: {
+	    orderConfirm: function orderConfirm() {
+	      alert("下单成功！");
+	    }
 	  }
 	};
 
@@ -9967,10 +9974,20 @@
 	// .container{
 	//   margin:20px auto;
 	// }
+	// .label-info{
+	//   color:#fff;
+	// }
 	// </style>
 	// <template>
 	// <div class="container">
 	//   <table class="table">
+	//     <thead>
+	//       <tr>
+	//         <th colspan="2" align="center" class="label-info">
+	//           订单确认
+	//         </th>
+	//       </tr>
+	//     </thead>
 	//     <tbody>
 	//       <tr>
 	//         <td>
@@ -9990,14 +10007,27 @@
 	//       </tr>
 	//       <tr>
 	//         <td>
-	//           订单编号：
+	//           商品信息：
 	//         </td>
 	//         <td>
-	//           {{orderNo}}
+	//           {{itemInfo}}
+	//         </td>
+	//       </tr>
+	//       <tr>
+	//         <td>
+	//           运营商：
+	//         </td>
+	//         <td>
+	//           {{operator}}
 	//         </td>
 	//       </tr>
 	//     </tbody>
 	//   </table>
+	//   <div class="row">
+	//     <div class="col-md-6">
+	//       <button class="btn btn-primary" @click="orderConfirm">确认订单</button>
+	//     </div>
+	//   </div>
 	// </div>
 	// </template>
 	// <script>
@@ -10007,20 +10037,45 @@
 /***/ 42:
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var orderData = {};
+	var count = 0;
+	function getDeepData(data) {
+	  for (var i in data) {
+	    for (var j in data[i]) {
+	      return data[i][j];
+	    }
+	  }
+	};
+	if (response.data && !response.data['error_response']) {
+	  orderData = getDeepData(response.data);
+	} else {
+	  orderData.error = response.data['error_response']['sub_msg'];
+	}
+	
 	exports.default = {
+	  getOperator: function getOperator() {
+	    return orderData.province + "-" + orderData.city + "-" + orderData.operator;
+	  },
 	  getMobile: function getMobile() {
-	    return "12345677890";
+	    return orderData.mobileNo;
 	  },
 	  getRecharge: function getRecharge() {
-	    return "100";
+	    return orderData.rechargeAmount;
 	  },
-	  getOrderNo: function getOrderNo() {
-	    return "S12319820381";
+	  getItemInfo: function getItemInfo() {
+	    return orderData.itemId + "-" + orderData.itemName;
+	  },
+	  getCity: function getCity() {
+	    return orderData.province + "-" + orderData.city;
+	  },
+	  getReverseFlag: function getReverseFlag() {
+	    return orderData.reverseFlag;
 	  }
 	};
 
@@ -10029,7 +10084,7 @@
 /***/ 43:
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container\">\n  <table class=\"table\">\n    <tbody>\n      <tr>\n        <td>\n          手机号码：\n        </td>\n        <td>\n          {{mobile}}\n        </td>\n      </tr>\n      <tr>\n        <td>\n          充值面额：\n        </td>\n        <td>\n          {{recharge}}\n        </td>\n      </tr>\n      <tr>\n        <td>\n          订单编号：\n        </td>\n        <td>\n          {{orderNo}}\n        </td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n";
+	module.exports = "\n<div class=\"container\">\n  <table class=\"table\">\n    <thead>\n      <tr>\n        <th colspan=\"2\" align=\"center\" class=\"label-info\">\n          订单确认\n        </th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>\n          手机号码：\n        </td>\n        <td>\n          {{mobile}}\n        </td>\n      </tr>\n      <tr>\n        <td>\n          充值面额：\n        </td>\n        <td>\n          {{recharge}}\n        </td>\n      </tr>\n      <tr>\n        <td>\n          商品信息：\n        </td>\n        <td>\n          {{itemInfo}}\n        </td>\n      </tr>\n      <tr>\n        <td>\n          运营商：\n        </td>\n        <td>\n          {{operator}}\n        </td>\n      </tr>\n    </tbody>\n  </table>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <button class=\"btn btn-primary\" @click=\"orderConfirm\">确认订单</button>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }
 
