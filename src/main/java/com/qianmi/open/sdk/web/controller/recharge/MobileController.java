@@ -69,12 +69,13 @@ public class MobileController {
      * @throws ApiException
      */
     @RequestMapping(value = "/itemList")
-    public void mobileGetItemInfo() throws ApiException {
+    public Object mobileGetItemInfo() throws ApiException {
         OpenClient client = new DefaultOpenClient(url, appKey, appSecret);
         RechargeMobileGetItemInfoRequest req = new RechargeMobileGetItemInfoRequest();
         req.setMobileNo("13333333333");
         req.setRechargeAmount("100");
         RechargeMobileGetItemInfoResponse response = client.execute(req, accessToken);
+        return  response;
     }
 
 
