@@ -56,6 +56,15 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.qianmi.open</groupId>
+            <artifactId>open-sdk-jar</artifactId>
+            <version>20160108</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/qianmi-elife-api-sdk-java-20160108.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -76,6 +85,24 @@
                     </includes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/lib</directory>
+                            <targetPath>WEB-INF/lib</targetPath>
+                            <filtering>false</filtering>
+                            <includes>
+                                <include>**/*.jar</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+
 </project>
