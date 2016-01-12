@@ -1,13 +1,11 @@
 <template>
 <div class="container">
-  <form v-bind:class='formClasses' method="post" action="">
-    <input type="hidden" name="mobile" value="{{aliasNumber}}">
-    <input type="hidden" name="facevalue" value="{{charge}}">
+  <form v-bind:class='formClasses' method="post" action="/mobile/itemInfo">
     <div class="form-group">
       <label for="mobile" class="col-sm-2 control-label">手机号码：</label>
        <div class="col-sm-10">
          <div>
-            <input v-mobile-input='mobileNumber' v-model='mobileNumber' id="mobile" name="mobile" type="text" placeholder='请输入手机号码' class="form-control" />
+            <input v-mobile-input='mobileNo' v-model='mobileNo' id="mobileNo" name="mobileNo" type="text" placeholder='请输入手机号码' class="form-control" />
             <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
             <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
          </div>
@@ -17,9 +15,10 @@
        </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">选择面值：</label>
+      <label class="col-sm-2 control-label"> 输入面值：</label>
       <div class="col-sm-10">
-          <div>
+        <input type="number" v-model="rechargeAmount"  name="rechargeAmount" class="form-control" placeholder="10，20，30"/>
+          <!--<div>
               <ul class="list-inline">
                 <li v-for='val in charges'>
                   <text-control
@@ -30,7 +29,8 @@
                 </li>
 
               </ul>
-          </div>
+
+          </div>-->
       </div>
     </div>
     <div class="form-group">
@@ -45,6 +45,9 @@
 <style scoped>
 .container{
   margin:20px auto;
+}
+.form{
+    width:600px;
 }
 .form .glyphicon{
   right:20px;
@@ -92,26 +95,29 @@ Vue.directive('mobile-input',{
 export default{
   data(){
     return {
-      charge:0,
-      charges:[100,200,500],
-      mobileNumber:'',
+      rechargeAmount:10,
+      //charges:[100,200,500],
+      mobileNo:'',
       aliasNumber:'',
       formClasses:['form','form-horizontal']
     }
   },
   computed:{
-    validate(){
-      return /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(this.mobileNumber.replace(/\s/g,''));
+    validateNo(){
+      return /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(this.mobileNo.replace(/\s/g,''));
+    },
+    validateAmount(){
+        return /^[0-9]*$/.test(this.rechargeAmount);
     }
 
   },
   methods:{
     selectCharge(value){
-      this.charge = value;
+      this.rechargeAmount = value;
     },
     reset(number){
       this.$nextTick(()=>{
-        this.mobileNumber = number;
+        this.mobileNo = number;
       })
 
     },
@@ -124,19 +130,21 @@ export default{
       }
     },
     send(number){
-      if(this.validate){
-        this.formClasses.push("has-success");
+
+      if(this.validateNo){
+       this.formClasses.push("has-success");
         //查询手机支持面值列表
-        this.$http.get('/someUrl').then((response)=>{
+       /*  this.$http.get('/someUrl').then((response)=>{
           // set data on vm
           this.$set('charges', response.data)
         },()=>{
           this.formClasses.push("has-error");
-        });
+        });*/
       }else{
         this.formClasses.push("has-error");
       }
     }
+
   },
   components:{
     TextControl
