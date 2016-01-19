@@ -8,6 +8,7 @@ import com.qianmi.open.api.request.QmcsMessagesConfirmRequest;
 import com.qianmi.open.api.request.QmcsMessagesConsumeRequest;
 import com.qianmi.open.api.response.QmcsMessagesConfirmResponse;
 import com.qianmi.open.api.response.QmcsMessagesConsumeResponse;
+import com.qianmi.open.sdk.web.controller.BaseController;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -25,12 +26,9 @@ import java.util.List;
  * c:电商云商品、订单、物流、会员等变更类消息。
  */
 @Component
-public class qmcsTask {
+public class qmcsTask extends BaseController {
 
-    private static final String url = "http://172.19.65.14:8080/api";
-    private static final String appKey = "10000543";
-    private static final String appSecret = "Ze0RMHXkCKtOCpNSQYbAiR7nBlT8ChdJ";
-    private static final String accessToken = "558bb67731c34db5b1892c7528b98021";
+
 
 
     /**
@@ -40,7 +38,6 @@ public class qmcsTask {
      * @throws com.qianmi.open.api.ApiException
      */
     public QmcsMessagesConsumeResponse getMessagesConsumer() throws ApiException {
-        OpenClient client = new DefaultOpenClient(url, appKey, appSecret);
         QmcsMessagesConsumeRequest req = new QmcsMessagesConsumeRequest();
         req.setGroupName("group_name");
         req.setQuantity(10);
@@ -56,7 +53,6 @@ public class qmcsTask {
      * @throws com.qianmi.open.api.ApiException
      */
     public QmcsMessagesConfirmResponse qmcsMessagesConfir(String ids) throws ApiException {
-        OpenClient client = new DefaultOpenClient(url, appKey, appSecret);
         QmcsMessagesConfirmRequest req = new QmcsMessagesConfirmRequest();
         req.setsMessageIds(ids);
         QmcsMessagesConfirmResponse response = client.execute(req, accessToken);
@@ -66,11 +62,15 @@ public class qmcsTask {
 
         @Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次
         public void myTest(){
-            System.out.println("进入测试a1");
+            System.out.println("进入测试");
         }
 
 
-    @Scheduled(cron="0/30 * *  * * ? ")   //每30秒执行一次
+    /**
+     * 通过定时任务获取消息demo
+     *
+     */
+    @Scheduled(cron="0/30 * *  * * ? ")  //每30秒执行一次
     public void qmcsMessageTask(){
         QmcsMessagesConsumeResponse response =new QmcsMessagesConsumeResponse();
         StringBuffer ids =null;
@@ -78,12 +78,17 @@ public class qmcsTask {
             response= this.getMessagesConsumer();
             List<QmcsMessage> qmcsMessages =  response.getQmcsMessages();
 
+            //处理消息内容
+            System.out.println(qmcsMessages);
+
+            //处理完消息之后需要修改消息确认状态.
             if (qmcsMessages != null && !qmcsMessages.isEmpty()) {
                 for (QmcsMessage task : qmcsMessages) {
                     ids.append(task.getId()+",");
                 }
-                qmcsMessagesConfir(ids.substring(0, ids.length()-1));
+                qmcsMessagesConfir(ids.substring(0, ids.length() - 1));
             }
+
         } catch (ApiException e) {
             e.printStackTrace();
         }
