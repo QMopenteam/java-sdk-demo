@@ -28,9 +28,8 @@
     <mvc:annotation-driven />
 
     <mvc:resources mapping="/static/**" location="/static/"/>
-    <mvc:resources mapping="/build/**" location="/build/"/>
 
-    <mvc:view-controller path="/" view-name="welcome"/>
+    <mvc:view-controller path="/" view-name="mobile-recharge"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>

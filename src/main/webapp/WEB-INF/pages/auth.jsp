@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>授权页面</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/base.css"/>
     <script type="text/javascript">
         function goAuth() {

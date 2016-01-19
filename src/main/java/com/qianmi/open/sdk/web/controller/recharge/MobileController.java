@@ -7,6 +7,7 @@ import com.qianmi.open.api.request.RechargeMobileCreateBillRequest;
 import com.qianmi.open.api.request.RechargeMobileGetItemInfoRequest;
 import com.qianmi.open.api.response.RechargeMobileCreateBillResponse;
 import com.qianmi.open.api.response.RechargeMobileGetItemInfoResponse;
+import com.qianmi.open.sdk.web.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -27,18 +28,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/mobile")
-public class MobileController {
-
-    private static final String url = "http://172.19.65.14:8080/api";
-    private static final String appKey = "10000543";
-    private static final String appSecret = "Ze0RMHXkCKtOCpNSQYbAiR7nBlT8ChdJ";
-    private static final String accessToken = "558bb67731c34db5b1892c7528b98021";
+public class MobileController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showPage() {
         return "mobile-recharge";
     }
-
 
     /**
      * 方式1
@@ -55,19 +50,16 @@ public class MobileController {
         if(mobileNo.isEmpty() || rechargeAmount.isEmpty()){
             return "mobile-recharge";
         }
-        OpenClient client = new DefaultOpenClient(url, appKey, appSecret);
         RechargeMobileGetItemInfoRequest req = new RechargeMobileGetItemInfoRequest();
         req.setMobileNo(mobileNo);
         req.setRechargeAmount(rechargeAmount);
         RechargeMobileGetItemInfoResponse response = client.execute(req, accessToken);
-        //System.out.println(response);
-
 
         if(response.getErrorCode() != null){
             model.addAttribute("error",response.getSubMsg()+response.getSubCode());
             return "notFound";
         }else{
-            model.addAttribute("data",response.getBody());
+            model.addAttribute("data",response.getMobileItemInfo());
             return "order-confirm";
         }
 
@@ -84,7 +76,6 @@ public class MobileController {
      */
     @RequestMapping(value = "/itemList")
     public Object mobileGetItemInfo() throws ApiException {
-        OpenClient client = new DefaultOpenClient(url, appKey, appSecret);
         RechargeMobileGetItemInfoRequest req = new RechargeMobileGetItemInfoRequest();
         req.setMobileNo("13333333333");
         req.setRechargeAmount("100");
@@ -101,7 +92,6 @@ public class MobileController {
      */
     @RequestMapping(value = "/createBill")
     public Object mobileCreateBill(String itemId , String mobileNo,String rechargeAmount) throws ApiException {
-        OpenClient client = new DefaultOpenClient(url, appKey, appSecret);
         RechargeMobileCreateBillRequest req = new RechargeMobileCreateBillRequest();
         req.setItemId(itemId);
         req.setMobileNo(mobileNo);
