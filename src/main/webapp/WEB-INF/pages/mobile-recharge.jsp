@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-  <form method="post" id="form" class="form form-horizontal" action="/mobile/itemInfo">
+  <form method="post" id="form" class="form form-horizontal" action="/mobile/createBill" onsubmit="return check()">
     <div class="form-group">
       <label for="mobileNo" class="col-sm-2 control-label">手机号码：</label>
       <div class="col-sm-10">
@@ -28,13 +28,17 @@
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label"> 输入面值：</label>
-      <div class="col-sm-10">
-        <input type="number" name="rechargeAmount" class="form-control" placeholder="100"/>
+      <div class="col-sm-10" id="rechargeAmountDiv">
+        <span class="label label-unselect" onclick="chooseRechargeAmount(this)">30</span>
+        <span class="label label-select" onclick="chooseRechargeAmount(this)">50</span>
+        <span class="label label-unselect margin-right-20" onclick="chooseRechargeAmount(this)">100</span>
+        其他面值：<input type="number" id="customAmount" name="customAmount" placeholder="200" onclick="customRechargeAmount()"/>
+        <input type="hidden" name="rechargeAmount" id="rechargeAmount" value="50"/>
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-info">提交</button>
+        <button type="submit" class="btn btn-info">提交订单</button>
       </div>
     </div>
   </form>
@@ -57,7 +61,37 @@
   }
 
   function validateAmount(rechargeAmount){
-    return /^[0-9]*$/.test(rechargeAmount);
+    return /^[1-9][0-9]*$/.test(rechargeAmount);
+  }
+
+  function chooseRechargeAmount(e) {
+    $('#rechargeAmountDiv').find('.label-select').removeClass('label-select').addClass('label-unselect');
+    $(e).removeClass('label-unselect');
+    $(e).addClass('label-select');
+    $('customAmount').val('');
+    $('#rechargeAmount').val($(e).html());
+  }
+
+  function customRechargeAmount() {
+    $('#rechargeAmountDiv').find('.label').removeClass('label-select').addClass('label-unselect');
+  }
+
+  function check() {
+    if (!$('#form').hasClass('has-success') && !validateNo($('#mobileNo').val().replace(/\s/g,''))) {
+      $('#mobileNo').focus();
+      return false;
+    }
+    if ($('#rechargeAmountDiv').find('.label-select').length != 0) {
+      return true;
+    }
+    var customAmount = $('#customAmount').val().replace(/\s/g,'');
+    if (validateAmount(customAmount)) {
+      $('#rechargeAmount').val(customAmount);
+      return true;
+    }
+    $('#customAmount').val('');
+    $('#customAmount').focus();
+    return false;
   }
 </script>
 </body>

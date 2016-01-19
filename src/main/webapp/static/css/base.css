@@ -17,6 +17,9 @@
 .margin-20 {
     margin: 20px;
 }
+.margin-right-20 {
+    margin-right: 20px;
+}
 .label-info{
     color:#fff;
 }
@@ -31,4 +34,15 @@
 }
 .label-bordered.active{
     border-color:#F60;
+}
+
+.label-unselect {
+    border: 1px solid #777;
+    background-color: #fff;
+    color: #777;
+}
+
+.label-select {
+    border: 1px solid #337ab7;
+    background-color: #337ab7;
 }
