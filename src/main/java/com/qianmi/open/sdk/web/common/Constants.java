@@ -5,18 +5,26 @@ import java.util.Properties;
 /**
  * Created by qmopen on 16/1/9.
  */
-public class Constants {
+public final class Constants {
+
+    private Constants() {}
+
+    public static final String API_URL = "http://172.19.65.14:8080/api";
 
     /**
      * open相关的配置信息
      */
-    public static Properties openConfig;
+    public static Properties props;
 
-    public static void loadUbgwConfig(Properties props) {
-        openConfig = props;
+    public static void loadProps(Properties props) {
+        Constants.props = props;
     }
 
     public static String getProperty(final String key) {
-        return openConfig.getProperty(key);
+        return props.getProperty(key);
+    }
+
+    public static void setProperty(final String key, final String value) {
+        props.put(key, value);
     }
 }
