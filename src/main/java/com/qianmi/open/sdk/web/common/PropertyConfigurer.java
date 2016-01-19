@@ -18,7 +18,7 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer {
     protected void processProperties(ConfigurableListableBeanFactory beanFactory, Properties props) throws BeansException {
         logger.warn("========================加载配置文件开始==================");
         super.processProperties(beanFactory, props);
-
+        Constants.loadProps(props);
         logger.warn("========================加载配置文件结束===================");
     }
 }
