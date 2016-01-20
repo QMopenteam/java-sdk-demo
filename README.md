@@ -20,16 +20,17 @@
 
 ### 安装项目
 
-1. 安装maven和Tomcat，请自行百度
+1. 安装maven和Tomcat，请自行百度。
 
 2. 下载项目代码到本地，找到src/main/resources/META-INF/cconfig/config.properties文件，并将appKey和appSecret改成自己的。accessToken可以不改。
+
 ``` java
 appKey=你的appKey
 appSecret=你的appSecret
 accessToken=你的accessToken
 ```
 
-3. 在项目根目录下执行`mvn clean install`命令，会在项目根目录的target文件夹下生成`sdk-demo.war`文件
+3. 在项目根目录下执行`mvn clean install`命令，会在项目根目录的target文件夹下生成`sdk-demo.war`文件。
 
 4. 将Tomcat的`webapps`目录下的ROOT重命名为其他任意名字，然后将步骤3中的`sdk-demo.war`拷贝到webapps下面并`重命名为ROOT.war`，执行Tomcat的bin目录下的`startup.sh`或`startup.bat`启动项目。
 
@@ -81,8 +82,9 @@ public String getToken(String code, Model model) {
 ```
 首先这个方法会接收之前url里面的code参数，然后将code传给SDK提供的`OAuthUtils.getToken(APP_KEY, APP_SECRET, code)`方法获取Token。方法参数中的`APP_KEY`和`APP_SECRET`由父类BaseController提供，下面会有说明。通过`response.isSuccess()`判断接口调用是否成功，如果成功，就会跳转到上面的授权成功页面。
 
-在页面跳转之前，还会再做两件事：<br>
-1. 更新accessToken
+在页面跳转之前，还会再做两件事：<br/>
+<p>1.更新accessToken</p>
+
 ``` java
 private void updateToken(TokenResponse response) {
     // 设置refreshToken
@@ -109,7 +111,8 @@ public class BaseController {
 ```
 这些参数的初始值均是从src/main/resources/META-INF/config/config.properties中读取。
 
-2. 启动定时任务刷新accessToken
+<p>2.启动定时任务刷新accessToken</p>
+
 ``` java
 private void startRefreshToken() {
     // 刷新Token任务
@@ -243,7 +246,7 @@ private boolean handleOrder(String content) {
 
 访问`http://localhost:8080`进入充值页面：
 
-![话费充值](https://github.com/QMopenteam/java-sdk-demo/raw/master/image/mobile-rechage.png)
+![话费充值](https://github.com/QMopenteam/java-sdk-demo/raw/master/image/mobile-recharge.png)
 
 输入手机号码和充值金额，点击提交订单，就会调用相关接口创建订单：
 ``` java
