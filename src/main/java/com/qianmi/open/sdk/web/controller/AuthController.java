@@ -68,7 +68,7 @@ public class AuthController extends BaseController {
             }
         };
         // 每天7点刷新Token，每隔12个小时刷新一次
-        new Timer().schedule(refreshTokenTask, getFirstTime(), 12 * 60 * 60 * 1000);
+        new Timer("refresh-token-timer", true).schedule(refreshTokenTask, getFirstTime(), 12 * 60 * 60 * 1000);
     }
 
     /**

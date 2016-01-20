@@ -9,8 +9,6 @@ public final class Constants {
 
     private Constants() {}
 
-    public static final String API_URL = "http://gw.api.qianmi.com/api";
-
     /**
      * open相关的配置信息
      */

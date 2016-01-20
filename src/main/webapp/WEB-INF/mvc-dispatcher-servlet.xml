@@ -5,8 +5,6 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc
-
-
        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
        http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
@@ -14,7 +12,6 @@
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task.xsd">
-       http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 读取配置文件 -->
     <bean id="propertyConfigurer" class="com.qianmi.open.sdk.web.common.PropertyConfigurer">
@@ -34,7 +31,6 @@
     <mvc:annotation-driven />
 
     <mvc:resources mapping="/static/**" location="/static/"/>
-    <mvc:resources mapping="/build/**" location="/build/"/>
 
     <task:annotation-driven/>
 
