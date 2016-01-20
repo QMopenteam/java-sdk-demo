@@ -24,10 +24,9 @@
 
 2. 下载项目代码到本地，找到src/main/resources/META-INF/cconfig/config.properties文件，并将appKey和appSecret改成自己的。accessToken可以不改。
 
-
-    appKey=你的appKey
-    appSecret=你的appSecret
-    accessToken=你的accessToken
+    appKey=你的appKey<br/>
+    appSecret=你的appSecret<br/>
+    accessToken=你的accessToken<br/>
 
 3. 在项目根目录下执行`mvn clean install`命令，会在项目根目录的target文件夹下生成`sdk-demo.war`文件。
 
