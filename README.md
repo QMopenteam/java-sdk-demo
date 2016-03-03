@@ -132,7 +132,7 @@ private void startRefreshToken() {
 任务在早上7点和晚上7点定时执行，使用SDK提供的`OAuthUtils.refreshToken(String appKey, String appSecret, String refreshToken))`和之前获取到的`refreshToken`来刷新accessToken，并替换掉旧的accessToken。
 
 ### 开启消息服务
-消息服务主要是为了实时的获取到数据的变更信息，最常见的订单的充值状态变更。消息服务的详细说明可参考文档[消息服务说明][qmcs-service]和[消息字段说明][qmcs-fiels]。开启消息服务需要调用相关接口。消息接口可参考文档[消息服务API][qmcs-api]。
+消息服务主要是为了实时的获取到数据的变更信息，最常见的订单的充值状态变更。消息服务的详细说明可参考文档[消息服务说明][qmcs-service]和[消息字段说明][qmcs-fiels]。开启消息服务需要调用相关接口。如何调用接口请参考[API调用详解][api-call]。消息接口可参考文档[消息服务API][qmcs-api]。
 
 在开启消息服务之前，必须先由上级账号登录[控制台][console]为应用订阅消息，具体步骤参考[消息服务说明][qmcs-service]的`订阅千米消息服务`。做完这步，就可以为用户开启消息服务了。
 
@@ -328,6 +328,7 @@ public class MobileController extends BaseController {
 [qmcs-service]:http://open.qianmi.com/doc/detail?redirect=%2Fdoc%2Fdocument%2Fdev%2Fqmcs
 [qmcs-fiels]:http://open.qianmi.com/doc/detail?redirect=%2Fdoc%2Fdocument%2Fdev%2Fqmcs-topic-field
 [console]:http://open.qianmi.com/login?redirect_uri=/console
+[api-call]:http://open.qianmi.com/doc/detail?redirect=%2Fdoc%2Fdocument%2Fdev%2Fapi
 [qmcs-api]:http://open.qianmi.com/qmapi/apiList?gid=G1100001865&sysId=1
 [mobil-api]:http://open.qianmi.com/qmapi/apiList?gid=G1100000910&sysId=1
 [exception-intro]:http://open.qianmi.com/doc/detail?redirect=%2Fdoc%2Fdocument%2Fdev%2Ferr-desc
