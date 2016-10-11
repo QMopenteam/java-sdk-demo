@@ -96,7 +96,7 @@ private void updateToken(TokenResponse response) {
 ``` java
 public class BaseController {
 
-    private static final String API_URL = "http://172.19.65.14:8080/api";
+    private static final String API_URL = "http://localhost:8080/api";
 
     protected static final String APP_KEY = Constants.getProperty("appKey");
     protected static final String APP_SECRET = Constants.getProperty("appSecret");
